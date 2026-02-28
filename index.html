@@ -113,44 +113,79 @@
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-centered">Sampling Dynamics Across Inverse Problems</h2>
       <p class="has-text-centered subtitle is-6 trajectory-subtitle">
-        Each row shows reference image, measurement observation, and NA-NHMC convergence trajectory.
+        Three representative inverse problems. Each task card shows reference image, measurement, and NA-NHMC convergence trajectory.
       </p>
 
-      <div class="traj-header">
-        <div class="traj-task-col">Task</div>
-        <div class="traj-col">Ground Truth / Reference</div>
-        <div class="traj-col">Measurement</div>
-        <div class="traj-col">NA-NHMC Sampling Process</div>
+      <div class="traj-task-card">
+        <div class="traj-card-head">
+          <h3 class="title is-5 mb-2">Phase Retrieval</h3>
+          <p class="is-size-7">
+            <b>Setting:</b> FFHQ 256x256, observation noise sigma_y=0.01.  
+            <b>Detail:</b> Fourier-magnitude measurements cause severe ambiguity; trajectory shows gradual manifold-aligned recovery.
+          </p>
+        </div>
+        <div class="traj-grid">
+          <figure class="traj-panel">
+            <div class="traj-label">Reference</div>
+            <img src="assets/media/ref_phase.png" alt="Reference for phase retrieval" />
+          </figure>
+          <figure class="traj-panel">
+            <div class="traj-label">Measurement</div>
+            <img src="assets/media/meas_phase.png" alt="Measurement for phase retrieval" />
+          </figure>
+          <figure class="traj-panel">
+            <div class="traj-label">NA-NHMC Convergence Trajectory</div>
+            <img src="assets/media/traj_phase.gif" alt="NA-NHMC trajectory for phase retrieval" />
+          </figure>
+        </div>
       </div>
 
-      <div class="traj-row">
-        <div class="traj-task-col">
-          <h3 class="title is-6 mb-1">Phase Retrieval</h3>
-          <p class="is-size-7">FFHQ, σ<sub>y</sub>=0.01</p>
+      <div class="traj-task-card">
+        <div class="traj-card-head">
+          <h3 class="title is-5 mb-2">Random Inpainting (92%)</h3>
+          <p class="is-size-7">
+            <b>Setting:</b> FFHQ 256x256, random mask ratio 92%, observation noise sigma_y=0.05.  
+            <b>Detail:</b> Most pixels are missing; NA-NHMC samples progressively restore global structure and local facial textures.
+          </p>
         </div>
-        <div class="traj-col"><img src="assets/media/ref_phase.png" alt="Reference for phase retrieval" /></div>
-        <div class="traj-col"><img src="assets/media/meas_phase.png" alt="Measurement for phase retrieval" /></div>
-        <div class="traj-col"><img src="assets/media/traj_phase.gif" alt="NA-NHMC trajectory for phase retrieval" /></div>
+        <div class="traj-grid">
+          <figure class="traj-panel">
+            <div class="traj-label">Reference</div>
+            <img src="assets/media/ref_inpaint.png" alt="Reference for inpainting" />
+          </figure>
+          <figure class="traj-panel">
+            <div class="traj-label">Measurement</div>
+            <img src="assets/media/meas_inpaint.png" alt="Measurement for inpainting" />
+          </figure>
+          <figure class="traj-panel">
+            <div class="traj-label">NA-NHMC Convergence Trajectory</div>
+            <img src="assets/media/traj_inpaint.gif" alt="NA-NHMC trajectory for inpainting" />
+          </figure>
+        </div>
       </div>
 
-      <div class="traj-row">
-        <div class="traj-task-col">
-          <h3 class="title is-6 mb-1">Random Inpainting (92%)</h3>
-          <p class="is-size-7">FFHQ, σ<sub>y</sub>=0.05</p>
+      <div class="traj-task-card">
+        <div class="traj-card-head">
+          <h3 class="title is-5 mb-2">HDR Reconstruction</h3>
+          <p class="is-size-7">
+            <b>Setting:</b> FFHQ 256x256, nonlinear camera response, observation noise sigma_y=0.05.  
+            <b>Detail:</b> Trajectory illustrates iterative correction of exposure and contrast while preserving semantic consistency.
+          </p>
         </div>
-        <div class="traj-col"><img src="assets/media/ref_inpaint.png" alt="Reference for inpainting" /></div>
-        <div class="traj-col"><img src="assets/media/meas_inpaint.png" alt="Measurement for inpainting" /></div>
-        <div class="traj-col"><img src="assets/media/traj_inpaint.gif" alt="NA-NHMC trajectory for inpainting" /></div>
-      </div>
-
-      <div class="traj-row">
-        <div class="traj-task-col">
-          <h3 class="title is-6 mb-1">HDR Reconstruction</h3>
-          <p class="is-size-7">FFHQ, σ<sub>y</sub>=0.05</p>
+        <div class="traj-grid">
+          <figure class="traj-panel">
+            <div class="traj-label">Reference</div>
+            <img src="assets/media/ref_hdr.png" alt="Reference for HDR" />
+          </figure>
+          <figure class="traj-panel">
+            <div class="traj-label">Measurement</div>
+            <img src="assets/media/meas_hdr.png" alt="Measurement for HDR" />
+          </figure>
+          <figure class="traj-panel">
+            <div class="traj-label">NA-NHMC Convergence Trajectory</div>
+            <img src="assets/media/traj_hdr.gif" alt="NA-NHMC trajectory for HDR" />
+          </figure>
         </div>
-        <div class="traj-col"><img src="assets/media/ref_hdr.png" alt="Reference for HDR" /></div>
-        <div class="traj-col"><img src="assets/media/meas_hdr.png" alt="Measurement for HDR" /></div>
-        <div class="traj-col"><img src="assets/media/traj_hdr.gif" alt="NA-NHMC trajectory for HDR" /></div>
       </div>
     </div>
   </div>
