@@ -69,19 +69,20 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <h2 class="title is-3 has-text-centered">1) Motivation and Method (Figure 1)</h2>
+      <h2 class="title is-3 has-text-centered">Motivation and Method</h2>
       <div class="content has-text-centered">
-        <img id="fig1-thumb" src="assets/media/first_page.png" width="94%" alt="Figure 1: motivation and method overview" />
+        <img id="fig1-thumb" src="assets/media/generation6.png" width="96%" alt="Comparison of existing methods and NA-NHMC" />
       </div>
       <div id="lightbox" class="lightbox">
-        <img src="assets/media/first_page.png" alt="Figure 1 high resolution" />
+        <img src="assets/media/generation6.png" alt="Motivation and method figure high resolution" />
       </div>
       <div class="content has-text-justified fig-caption">
         <p>
-          <b>Figure 1 overview.</b> Existing iterative-guidance methods can violate manifold feasibility,
-          stochastic MAP methods may overfit measurement noise, and deterministic MAP methods can be trapped in local modes.
-          NA-NHMC performs posterior sampling in the initial noise space and maps samples to images through deterministic DDIM,
-          improving robustness while preserving data-manifold consistency.
+          <b>Figure.</b> Comparison of existing methods and their limitations with the N-HMC method.
+          (a) Iterative Guidance Methods (<i>DPS</i>) lead to <i>manifold infeasibility</i>.
+          (b) Stochastic MAP methods (<i>ReSample</i>) are susceptible to <i>overfitting to noise</i>.
+          (c) Deterministic MAP methods (<i>DMPlug</i>) become <i>trapped in a local mode</i>.
+          (d) Our method performs sampling in the noise space <span class="math-inline">x<sub>T</sub></span> and maps samples to images via a deterministic mapping <span class="math-inline">x<sub>0</sub> = D(x<sub>T</sub>)</span>.
         </p>
       </div>
     </div>
@@ -92,15 +93,15 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">2) Abstract</h2>
+        <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
-          Diffusion models have shown strong performance in inverse problems, but existing approaches often suffer from
-          manifold infeasibility, noise overfitting, or local-mode collapse. We propose Noise-space Hamiltonian Monte Carlo (N-HMC),
-          which treats reverse diffusion as a deterministic mapping from initial Gaussian noise to clean images and performs
-          posterior sampling entirely in the noise space. This formulation keeps proposals on the learned manifold and enables
-          robust posterior exploration. We further introduce Noise-Adaptive N-HMC (NA-NHMC), which marginalizes unknown measurement
-          noise variance and removes task-specific tuning of noise-level hyperparameters. Across linear and nonlinear inverse problems
-          on FFHQ and ImageNet, NA-NHMC delivers strong reconstruction quality and robust behavior under unknown noise.
+          Diffusion models have shown strong performance in inverse problems, but existing approaches often suffer from manifold infeasibility,
+          noise overfitting, or local-mode collapse. We propose Noise-space Hamiltonian Monte Carlo (N-HMC), which treats reverse diffusion
+          as a deterministic mapping from initial Gaussian noise to clean images and performs posterior sampling entirely in the noise space.
+          This formulation keeps proposals on the learned manifold and enables robust posterior exploration. We further introduce
+          Noise-Adaptive N-HMC (NA-NHMC), which marginalizes unknown measurement noise variance and removes task-specific tuning of
+          noise-level hyperparameters. Across linear and nonlinear inverse problems on FFHQ and ImageNet, NA-NHMC delivers strong
+          reconstruction quality and robust behavior under unknown noise.
         </div>
       </div>
     </div>
@@ -110,47 +111,46 @@
 <section class="hero" id="trajectory">
   <div class="hero-body">
     <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">3) Sampling Trajectory of NA-NHMC</h2>
+      <h2 class="title is-3 has-text-centered">Sampling Dynamics Across Inverse Problems</h2>
       <p class="has-text-centered subtitle is-6 trajectory-subtitle">
-        Three representative tasks. Each animation shows accepted HMC states converging to reconstruction.
+        Each row shows reference image, measurement observation, and NA-NHMC convergence trajectory.
       </p>
 
-      <div class="video-container">
-        <div class="card trajectory-card">
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <img src="assets/media/traj_phase.gif" alt="Sampling trajectory on phase retrieval" />
-            </figure>
-          </div>
-          <div class="card-content has-text-centered">
-            <p class="title is-6">Phase Retrieval</p>
-            <p class="is-size-7">FFHQ, σ<sub>y</sub>=0.01, unknown-noise mode</p>
-          </div>
-        </div>
+      <div class="traj-header">
+        <div class="traj-task-col">Task</div>
+        <div class="traj-col">Ground Truth / Reference</div>
+        <div class="traj-col">Measurement</div>
+        <div class="traj-col">NA-NHMC Sampling Process</div>
+      </div>
 
-        <div class="card trajectory-card">
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <img src="assets/media/traj_inpaint.gif" alt="Sampling trajectory on random inpainting" />
-            </figure>
-          </div>
-          <div class="card-content has-text-centered">
-            <p class="title is-6">Random Inpainting (92%)</p>
-            <p class="is-size-7">FFHQ, σ<sub>y</sub>=0.05, unknown-noise mode</p>
-          </div>
+      <div class="traj-row">
+        <div class="traj-task-col">
+          <h3 class="title is-6 mb-1">Phase Retrieval</h3>
+          <p class="is-size-7">FFHQ, σ<sub>y</sub>=0.01</p>
         </div>
+        <div class="traj-col"><img src="assets/media/ref_phase.png" alt="Reference for phase retrieval" /></div>
+        <div class="traj-col"><img src="assets/media/meas_phase.png" alt="Measurement for phase retrieval" /></div>
+        <div class="traj-col"><img src="assets/media/traj_phase.gif" alt="NA-NHMC trajectory for phase retrieval" /></div>
+      </div>
 
-        <div class="card trajectory-card">
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <img src="assets/media/traj_hdr.gif" alt="Sampling trajectory on HDR reconstruction" />
-            </figure>
-          </div>
-          <div class="card-content has-text-centered">
-            <p class="title is-6">HDR Reconstruction</p>
-            <p class="is-size-7">FFHQ, σ<sub>y</sub>=0.05, unknown-noise mode</p>
-          </div>
+      <div class="traj-row">
+        <div class="traj-task-col">
+          <h3 class="title is-6 mb-1">Random Inpainting (92%)</h3>
+          <p class="is-size-7">FFHQ, σ<sub>y</sub>=0.05</p>
         </div>
+        <div class="traj-col"><img src="assets/media/ref_inpaint.png" alt="Reference for inpainting" /></div>
+        <div class="traj-col"><img src="assets/media/meas_inpaint.png" alt="Measurement for inpainting" /></div>
+        <div class="traj-col"><img src="assets/media/traj_inpaint.gif" alt="NA-NHMC trajectory for inpainting" /></div>
+      </div>
+
+      <div class="traj-row">
+        <div class="traj-task-col">
+          <h3 class="title is-6 mb-1">HDR Reconstruction</h3>
+          <p class="is-size-7">FFHQ, σ<sub>y</sub>=0.05</p>
+        </div>
+        <div class="traj-col"><img src="assets/media/ref_hdr.png" alt="Reference for HDR" /></div>
+        <div class="traj-col"><img src="assets/media/meas_hdr.png" alt="Measurement for HDR" /></div>
+        <div class="traj-col"><img src="assets/media/traj_hdr.gif" alt="NA-NHMC trajectory for HDR" /></div>
       </div>
     </div>
   </div>
@@ -158,56 +158,71 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">4) Experimental Results (Key Highlights)</h2>
+    <h2 class="title is-3 has-text-centered">Experimental Results</h2>
 
-    <div class="content has-text-justified">
-      <ul>
-        <li><b>Nonlinear inverse problems:</b> On FFHQ (σ<sub>y</sub>=0.05), NA-NHMC achieves the best nonlinear deblurring score (PSNR 27.66, SSIM 0.792, LPIPS 0.249) and strongest phase-retrieval performance (PSNR 19.30, SSIM 0.554, LPIPS 0.482).</li>
-        <li><b>Unknown noise robustness:</b> With the same hyperparameters used in Gaussian settings, NA-NHMC remains robust under impulse and speckle noise and outperforms prior methods on most metrics.</li>
-        <li><b>Stability:</b> Compared with guidance-based baselines, NA-NHMC shows lower sensitivity to initialization and better convergence behavior on highly ill-posed tasks.</li>
-      </ul>
-    </div>
-
-    <h3 class="title is-5">Selected Quantitative Snapshot (FFHQ, Nonlinear Deblurring, σ<sub>y</sub>=0.05)</h3>
-    <div class="table-container">
-      <table class="table is-striped is-hoverable is-fullwidth result-table">
-        <thead>
-          <tr>
-            <th>Method</th>
-            <th>PSNR ↑</th>
-            <th>SSIM ↑</th>
-            <th>LPIPS ↓</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>DiffPIR</td><td>26.12</td><td>0.743</td><td>0.289</td></tr>
-          <tr><td>DAPS</td><td>27.00</td><td>0.736</td><td>0.283</td></tr>
-          <tr><td>DMPlug</td><td>27.15</td><td>0.784</td><td>0.266</td></tr>
-          <tr class="ours-row"><td><b>NA-NHMC (ours)</b></td><td><b>27.66</b></td><td><b>0.792</b></td><td><b>0.249</b></td></tr>
-        </tbody>
-      </table>
+    <div class="result-block">
+      <h3 class="title is-5">Main Quantitative Comparison</h3>
+      <p class="result-desc">
+        Key benchmark table from the paper. It summarizes performance over representative linear and nonlinear inverse problems.
+        NA-NHMC consistently improves robustness, especially in difficult nonlinear settings and unknown-noise scenarios.
+      </p>
+      <figure>
+        <img src="assets/media/main_results_table.png" alt="Main quantitative table from paper" />
+        <figcaption>Main result table highlighting competitive or best performance of NA-NHMC across tasks and metrics.</figcaption>
+      </figure>
     </div>
 
     <div class="columns is-multiline">
       <div class="column is-12">
-        <h3 class="title is-5">Qualitative Result (Nonlinear Deblurring)</h3>
-        <img src="assets/media/nonlinear2.png" alt="Nonlinear deblurring qualitative results" />
+        <div class="result-block">
+          <h3 class="title is-5">Nonlinear Deblurring Visual Comparison</h3>
+          <p class="result-desc">
+            Under high noise (σ<sub>y</sub>=0.2), NA-NHMC recovers sharper facial details with fewer artifacts than prior baselines.
+          </p>
+          <figure>
+            <img src="assets/media/nonlinear2.png" alt="Nonlinear deblurring qualitative results" />
+            <figcaption>Nonlinear deblurring results on FFHQ (256×256) with σ<sub>y</sub>=0.2.</figcaption>
+          </figure>
+        </div>
       </div>
 
       <div class="column is-12">
-        <h3 class="title is-5">Unknown Noise Robustness</h3>
-        <img src="assets/media/unknown_noise.png" alt="Unknown noise qualitative results" />
+        <div class="result-block">
+          <h3 class="title is-5">Unknown Noise Robustness</h3>
+          <p class="result-desc">
+            With the same hyperparameter setting used for Gaussian experiments, NA-NHMC remains strong under impulse and speckle noise.
+          </p>
+          <figure>
+            <img src="assets/media/unknown_noise.png" alt="Unknown noise qualitative results" />
+            <figcaption>Nonlinear deblurring on FFHQ under impulse noise (top) and speckle noise (bottom).</figcaption>
+          </figure>
+        </div>
       </div>
 
       <div class="column is-6">
-        <h3 class="title is-5">Initialization Robustness</h3>
-        <img src="assets/media/heatmap2.png" alt="Heatmap robustness visualization" />
+        <div class="result-block">
+          <h3 class="title is-5">Initialization Robustness</h3>
+          <p class="result-desc">
+            Compared with DPS and DAPS, NA-NHMC shows lower variance across repeated runs while preserving reconstruction fidelity.
+          </p>
+          <figure>
+            <img src="assets/media/heatmap2.png" alt="Heatmap robustness visualization" />
+            <figcaption>Top: MAE heatmaps. Bottom: standard deviation heatmaps over 100 runs.</figcaption>
+          </figure>
+        </div>
       </div>
 
       <div class="column is-6">
-        <h3 class="title is-5">Convergence / Ablation</h3>
-        <img src="assets/media/metrics_iterations.png" alt="HMC iteration ablation" class="mb-4" />
-        <img src="assets/media/phase_retrieval_metrics_iterations.png" alt="Phase retrieval convergence" />
+        <div class="result-block">
+          <h3 class="title is-5">Convergence in Highly Ill-Posed Task</h3>
+          <p class="result-desc">
+            The annealed noise schedule improves early exploration and raises successful recovery rate in phase retrieval.
+          </p>
+          <figure>
+            <img src="assets/media/phase_retrieval_metrics_iterations.png" alt="Phase retrieval convergence" />
+            <figcaption>Phase retrieval on FFHQ (256×256), σ<sub>y</sub>=0.01; median with 5th–95th percentile band.</figcaption>
+          </figure>
+        </div>
       </div>
     </div>
   </div>

@@ -68,20 +68,91 @@
   margin-bottom: 1.2rem;
 }
 
-.video-container {
+.traj-header,
+.traj-row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  grid-template-columns: 1.05fr 1fr 1fr 1.25fr;
+  gap: 0.75rem;
+  align-items: stretch;
 }
 
-.trajectory-card {
-  border: 1px solid #e5ebf5;
+.traj-header {
+  margin-top: 0.8rem;
+  margin-bottom: 0.55rem;
+}
+
+.traj-header > div {
+  border: 1px solid #dde6f4;
+  background: #eef3fb;
+  border-radius: 8px;
+  padding: 0.6rem 0.7rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0f1f35;
+  text-align: center;
+}
+
+.traj-row {
+  margin-bottom: 0.75rem;
+}
+
+.traj-row > div {
+  border: 1px solid #dfe8f6;
+  background: #ffffff;
   border-radius: 10px;
-  overflow: hidden;
+  padding: 0.65rem;
 }
 
-.trajectory-card img {
-  object-fit: cover;
+.traj-task-col h3 {
+  margin-bottom: 0.2rem !important;
+  line-height: 1.2;
+}
+
+.traj-task-col p {
+  margin: 0;
+  color: #4a5568;
+}
+
+.traj-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.traj-col img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #e7edf7;
+  box-shadow: 0 5px 16px rgba(15, 23, 42, 0.08);
+}
+
+.result-block {
+  border: 1px solid #e1eaf7;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 1rem 1rem 0.8rem;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+.result-block .title {
+  margin-bottom: 0.5rem !important;
+}
+
+.result-desc {
+  margin-bottom: 0.7rem !important;
+  color: #374151;
+}
+
+.result-block img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #e4ebf7;
+}
+
+figcaption {
+  font-size: 0.86rem;
+  color: #4a5568;
+  margin-top: 0.5rem;
 }
 
 .result-table td,
@@ -103,7 +174,47 @@
 }
 
 @media screen and (max-width: 960px) {
-  .video-container {
+  .traj-header {
+    display: none;
+  }
+
+  .traj-row {
     grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .traj-row > div {
+    padding: 0.7rem;
+  }
+
+  .traj-col {
+    position: relative;
+    padding-top: 1.3rem;
+  }
+
+  .traj-col::before {
+    position: absolute;
+    top: 0.3rem;
+    left: 0.7rem;
+    font-size: 0.73rem;
+    font-weight: 700;
+    color: #334155;
+    letter-spacing: 0.01em;
+  }
+
+  .traj-row .traj-col:nth-child(2)::before {
+    content: "Ground Truth / Reference";
+  }
+
+  .traj-row .traj-col:nth-child(3)::before {
+    content: "Measurement";
+  }
+
+  .traj-row .traj-col:nth-child(4)::before {
+    content: "NA-NHMC Sampling Process";
+  }
+
+  .result-block {
+    padding: 0.85rem 0.85rem 0.7rem;
   }
 }
