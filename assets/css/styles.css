@@ -1,0 +1,391 @@
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --ink: #10253e;
+  --muted: #4b5f79;
+  --line: #d6e1ef;
+  --brand: #0b8f8a;
+  --brand-deep: #0f6e8f;
+  --warm: #f29f67;
+  --max: 1100px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Source Serif 4", Georgia, serif;
+  color: var(--ink);
+  background: radial-gradient(1000px 400px at 0% -20%, #eaf6ff 0%, transparent 75%), var(--bg);
+  line-height: 1.6;
+}
+
+img,
+canvas,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  width: min(var(--max), 94vw);
+  margin: 0 auto;
+}
+
+.narrow {
+  width: min(800px, 94vw);
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(248, 250, 252, 0.92);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(6px);
+}
+
+.nav {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  text-decoration: none;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+
+.nav nav a {
+  text-decoration: none;
+  color: var(--muted);
+  margin-left: 18px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.92rem;
+}
+
+.nav nav a:hover {
+  color: var(--brand-deep);
+}
+
+.hero {
+  padding: 58px 0 42px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.kicker {
+  margin: 0 0 8px;
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--brand-deep);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Space Grotesk", sans-serif;
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+
+h1 {
+  font-size: clamp(1.65rem, 3.6vw, 2.7rem);
+}
+
+h2 {
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+}
+
+h3 {
+  font-size: 1.06rem;
+}
+
+.authors,
+.affils {
+  margin: 8px 0;
+  color: var(--muted);
+}
+
+.dot {
+  margin: 0 8px;
+  color: #9fb0c4;
+}
+
+.hero-actions {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.btn {
+  border: 1px solid var(--line);
+  color: var(--ink);
+  text-decoration: none;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.9rem;
+  padding: 8px 13px;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.btn:hover {
+  border-color: var(--brand-deep);
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: #fff;
+  background: linear-gradient(135deg, var(--brand-deep), var(--brand));
+}
+
+.section {
+  padding: 42px 0;
+}
+
+.section-alt {
+  background: #eef4fb;
+  border-top: 1px solid #dce7f4;
+  border-bottom: 1px solid #dce7f4;
+}
+
+.lead {
+  margin: 0 0 14px;
+  color: var(--muted);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 8px 22px rgba(13, 33, 63, 0.06);
+}
+
+.caption {
+  margin: 8px 0 0;
+  font-size: 0.89rem;
+  color: var(--muted);
+}
+
+.node {
+  fill: #fff;
+  stroke: #b8cce2;
+  stroke-width: 1.5;
+}
+
+.node-a {
+  fill: #e9f6ff;
+}
+
+.node-b {
+  fill: #eef7f1;
+}
+
+.node-c {
+  fill: #fff2e9;
+}
+
+.node-d {
+  fill: #f6f2ff;
+}
+
+.node-text {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 21px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  fill: #18314e;
+}
+
+.flow-path {
+  fill: none;
+  stroke: #7f9fc5;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+#arrow polygon {
+  fill: #7f9fc5;
+}
+
+.flow-particle {
+  fill: var(--warm);
+  filter: drop-shadow(0 0 5px rgba(242, 159, 103, 0.8));
+}
+
+.challenge-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.challenge p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.figure-block {
+  margin: 0;
+}
+
+.figure-block img {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.figure-block figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.method-grid,
+.result-grid,
+.two-figs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+pre {
+  margin: 8px 0;
+  border-radius: 12px;
+  border: 1px solid #dae5f3;
+  background: #f2f7fc;
+  padding: 10px;
+  overflow-x: auto;
+}
+
+pre code {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.88rem;
+  color: #233854;
+}
+
+#manifold-canvas {
+  border-radius: 10px;
+  border: 1px solid #d5e3f2;
+  background: linear-gradient(180deg, #f9fcff, #edf4fb);
+  width: 100%;
+  height: auto;
+}
+
+.compare {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #111;
+}
+
+.compare img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.img-top-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 50%;
+  overflow: hidden;
+}
+
+.compare-handle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+}
+
+#compare-range {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.compare-labels {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.result-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.result-table th,
+.result-table td {
+  border-bottom: 1px solid #e0e8f2;
+  padding: 7px 6px;
+  text-align: right;
+}
+
+.result-table th:first-child,
+.result-table td:first-child {
+  text-align: left;
+}
+
+.result-table .ours td {
+  font-weight: 700;
+  color: #0b6f7a;
+  background: #ebfbfa;
+}
+
+.bibtex-section {
+  padding-bottom: 56px;
+}
+
+@media (max-width: 960px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .challenge-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .method-grid,
+  .result-grid,
+  .two-figs {
+    grid-template-columns: 1fr;
+  }
+
+  .nav nav a {
+    margin-left: 12px;
+  }
+}

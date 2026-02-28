@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Noise-Adaptive Diffusion Sampling for Inverse Problems Without Task-Specific Tuning</title>
+  <meta name="description" content="Official project page for Noise-Adaptive Diffusion Sampling for Inverse Problems Without Task-Specific Tuning." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#top">NA-NHMC</a>
+      <nav>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#bibtex">BibTeX</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="kicker">ICLR 2026</p>
+          <h1>Noise-Adaptive Diffusion Sampling for Inverse Problems Without Task-Specific Tuning</h1>
+          <p class="authors">
+            Setthakorn Tanomkiattikun<sup>1,3</sup>
+            <span class="dot">&#183;</span>
+            Zaiwang Gu<sup>2</sup>
+            <span class="dot">&#183;</span>
+            Liangli Zhen<sup>1</sup>
+            <span class="dot">&#183;</span>
+            Yingzhi Xia<sup>1&#9993;</sup>
+          </p>
+          <p class="affils">
+            <sup>1</sup>Institute of High Performance Computing, Agency for Science, Technology and Research, Singapore<br />
+            <sup>2</sup>Institute for Infocomm Research, Agency for Science, Technology and Research, Singapore<br />
+            <sup>3</sup>Johns Hopkins University
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://openreview.net/pdf?id=Yfk4ex3Z1G" target="_blank" rel="noopener noreferrer">OpenReview PDF</a>
+            <a class="btn" href="assets/paper/NA_HMC_CR.pdf" target="_blank" rel="noopener noreferrer">Local PDF</a>
+            <a class="btn" href="https://github.com/NA-HMC/NA-HMC" target="_blank" rel="noopener noreferrer">Code</a>
+          </div>
+        </div>
+        <div class="hero-visual card">
+          <h3>Animation A: Noise-Space Sampling Pipeline</h3>
+          <svg id="flow-svg" viewBox="0 0 760 220" aria-label="Noise-space pipeline animation">
+            <defs>
+              <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto" markerUnits="strokeWidth">
+                <polygon points="0 0, 10 3.5, 0 7" />
+              </marker>
+            </defs>
+            <rect x="18" y="74" width="126" height="70" rx="12" class="node node-a" />
+            <rect x="196" y="74" width="140" height="70" rx="12" class="node node-b" />
+            <rect x="388" y="74" width="126" height="70" rx="12" class="node node-c" />
+            <rect x="580" y="74" width="154" height="70" rx="12" class="node node-d" />
+            <text x="81" y="114" class="node-text">x<tspan baseline-shift="sub">T</tspan></text>
+            <text x="266" y="114" class="node-text">DDIM</text>
+            <text x="450" y="114" class="node-text">x<tspan baseline-shift="sub">0</tspan></text>
+            <text x="657" y="114" class="node-text">A(x<tspan baseline-shift="sub">0</tspan>), y</text>
+
+            <path id="flow-path" d="M144 109 L196 109 L336 109 L388 109 L514 109 L580 109" class="flow-path" marker-end="url(#arrow)" />
+            <circle id="flow-particle" r="7" cx="144" cy="109" class="flow-particle" />
+          </svg>
+          <p class="caption">Proposals are sampled in Gaussian noise space and deterministically mapped to image space.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container narrow">
+        <h2>Abstract</h2>
+        <p>
+          We propose Noise-space Hamiltonian Monte Carlo (N-HMC), a posterior sampler for inverse problems with pretrained diffusion models.
+          The key idea is to treat reverse diffusion as a deterministic map from initial noise to clean image and perform inference entirely in the initial noise space.
+          This keeps proposals on the learned data manifold, mitigates artifact accumulation, and improves robustness to measurement noise.
+          We further introduce Noise-Adaptive N-HMC (NA-NHMC), which marginalizes unknown measurement noise variance and avoids task-specific hyperparameter tuning.
+          Across linear and nonlinear inverse problems on FFHQ and ImageNet, NA-NHMC achieves strong reconstruction quality and robust behavior under unknown noise.
+        </p>
+      </div>
+    </section>
+
+    <section id="method" class="section">
+      <div class="container">
+        <h2>Motivation and Method</h2>
+        <div class="challenge-grid">
+          <article class="card challenge">
+            <h3>Issue 1: Manifold Infeasibility</h3>
+            <p>Likelihood guidance on intermediate states can move samples off the diffusion manifold.</p>
+          </article>
+          <article class="card challenge">
+            <h3>Issue 2: Noise Overfitting</h3>
+            <p>Image-space MAP optimization may overfit measurements in high or unknown noise regimes.</p>
+          </article>
+          <article class="card challenge">
+            <h3>Issue 3: Local Mode Traps</h3>
+            <p>Deterministic optimization can collapse into one mode on highly ill-posed tasks.</p>
+          </article>
+        </div>
+
+        <figure class="figure-block">
+          <img src="assets/media/first_page.png" alt="Comparison of existing methods and NA-NHMC" loading="lazy" />
+          <figcaption>Comparison of limitations in existing approaches and the noise-space sampling perspective.</figcaption>
+        </figure>
+
+        <div class="method-grid">
+          <div class="card">
+            <h3>Noise-Space Posterior</h3>
+            <pre><code>p(x_T | y) ∝ p(y | D(x_T)) · p(x_T)
+∇ log p(x_T | y) = -x_T + ∇ log p(y | x_T)</code></pre>
+            <p>
+              NA-NHMC marginalizes unknown Gaussian variance with a Jeffreys prior,
+              yielding a parameter-free likelihood term in noise space.
+            </p>
+          </div>
+          <div class="card animation-card">
+            <h3>Animation B: Off-Manifold vs Noise-Space Sampling</h3>
+            <canvas id="manifold-canvas" width="640" height="320" aria-label="Manifold feasibility animation"></canvas>
+            <p class="caption">Left: iterative guidance drifts off manifold. Right: noise-space proposals map back through unconditional DDIM.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="results" class="section section-alt">
+      <div class="container">
+        <h2>One Task Example and Quantitative Snapshot</h2>
+        <p class="lead">
+          Representative task: Nonlinear Deblurring on FFHQ (256×256), Gaussian noise σ<sub>y</sub>=0.05.
+        </p>
+
+        <div class="result-grid">
+          <div class="card">
+            <h3>Animation C: Interactive Reconstruction Slider</h3>
+            <div class="compare" id="compare-box">
+              <img src="assets/media/task_input.png" alt="Corrupted measurement" class="img-bottom" loading="lazy" />
+              <div class="img-top-wrap" id="img-top-wrap">
+                <img src="assets/media/task_output.png" alt="NA-NHMC reconstruction" class="img-top" loading="lazy" />
+              </div>
+              <div class="compare-handle" id="compare-handle"></div>
+            </div>
+            <input id="compare-range" type="range" min="0" max="100" value="50" aria-label="Comparison slider" />
+            <div class="compare-labels">
+              <span>Measurement</span>
+              <span>NA-NHMC Reconstruction</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>FFHQ Nonlinear Deblurring (σ<sub>y</sub>=0.05)</h3>
+            <table class="result-table">
+              <thead>
+                <tr><th>Method</th><th>PSNR↑</th><th>SSIM↑</th><th>LPIPS↓</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>DiffPIR</td><td>26.12</td><td>0.743</td><td>0.289</td></tr>
+                <tr><td>DAPS</td><td>27.00</td><td>0.736</td><td>0.283</td></tr>
+                <tr><td>DMPlug</td><td>27.15</td><td>0.784</td><td>0.266</td></tr>
+                <tr class="ours"><td>NA-NHMC (ours)</td><td>27.66</td><td>0.792</td><td>0.249</td></tr>
+              </tbody>
+            </table>
+            <p class="caption">Values from the main-paper nonlinear FFHQ benchmark table.</p>
+          </div>
+        </div>
+
+        <figure class="figure-block">
+          <img src="assets/media/nonlinear2.png" alt="Nonlinear deblurring visual comparison" loading="lazy" />
+          <figcaption>Visual comparison on nonlinear deblurring (FFHQ, σ<sub>y</sub>=0.2).</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Noise Adaptation and Robustness</h2>
+        <div class="two-figs">
+          <figure class="card">
+            <img src="assets/media/measurement_noise_std.png" alt="Estimated measurement noise standard deviation" loading="lazy" />
+            <figcaption>Estimated measurement noise standard deviation tracks true unknown noise.</figcaption>
+          </figure>
+          <figure class="card">
+            <img src="assets/media/unknown_noise.png" alt="Unknown noise qualitative results" loading="lazy" />
+            <figcaption>Qualitative results under impulse and speckle noise.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <h2>Ablation Highlights</h2>
+        <div class="two-figs">
+          <figure class="card">
+            <img src="assets/media/metrics_iterations.png" alt="Ablation on number of HMC iterations" loading="lazy" />
+            <figcaption>Performance improves with HMC iterations and then saturates.</figcaption>
+          </figure>
+          <figure class="card">
+            <img src="assets/media/psnr_steps.png" alt="Ablation on diffusion steps" loading="lazy" />
+            <figcaption>Two DDIM steps provide a practical quality-cost tradeoff.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="bibtex" class="section bibtex-section">
+      <div class="container narrow">
+        <h2>BibTeX</h2>
+        <pre><code>@inproceedings{tanomkiattikun2026noiseadaptive,
+  title     = {Noise-Adaptive Diffusion Sampling for Inverse Problems Without Task-Specific Tuning},
+  author    = {Tanomkiattikun, Setthakorn and Gu, Zaiwang and Zhen, Liangli and Xia, Yingzhi},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2026},
+  url       = {https://openreview.net/pdf?id=Yfk4ex3Z1G}
+}</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

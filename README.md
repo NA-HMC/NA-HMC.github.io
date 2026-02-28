@@ -1,0 +1,53 @@
+# NA-HMC Project Page
+
+Official website for:
+
+**Noise-Adaptive Diffusion Sampling for Inverse Problems Without Task-Specific Tuning**
+
+## Structure
+
+- `index.html`: single-page website
+- `assets/css/styles.css`: page styles
+- `assets/js/main.js`: animations and interactions
+- `assets/media/*`: figures used in the page
+- `assets/paper/NA_HMC_CR.pdf`: local paper PDF
+
+## Asset Build Pipeline
+
+Asset generation is handled outside this repo in:
+
+- `/scratch/aicloud-msr/xiay/NA-HMC/project_page_code/scripts/build_assets.py`
+
+This script renders selected manuscript PDFs to PNG and copies paper/example images into this website repo.
+
+## Rebuild Assets
+
+```bash
+cd /scratch/aicloud-msr/xiay/NA-HMC/project_page_code
+. .venv/bin/activate
+python scripts/build_assets.py
+```
+
+## Local Preview
+
+```bash
+cd /scratch/aicloud-msr/xiay/NA-HMC/NA-HMC.github.io
+python -m http.server 8000
+```
+
+Then open:
+
+- `http://localhost:8000`
+
+## Publish
+
+```bash
+cd /scratch/aicloud-msr/xiay/NA-HMC/NA-HMC.github.io
+git add .
+git commit -m "Build NA-HMC project page"
+git push origin main
+```
+
+If GitHub Pages is enabled for this repository (branch `main`, root `/`), the site will be served at:
+
+- `https://na-hmc.github.io/`
