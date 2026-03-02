@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="description" content="Noise-Adaptive Diffusion Sampling for Inverse Problems Without Task-Specific Tuning" />
+  <meta name="keywords" content="Inverse Problems, Diffusion Models, Posterior Sampling, HMC" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Noise-Adaptive Diffusion Sampling for Inverse Problems Without Task-Specific Tuning</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">Noise-Adaptive Diffusion Sampling for Inverse Problems Without Task-Specific Tuning</h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Yingzhi Xia<sup>1*</sup>,</span>
+            <span class="author-block">Setthakorn Tanomkiattikun<sup>1,3*</sup>,</span>
+            <span class="author-block">Liangli Zhen<sup>1&#9993;</sup>,</span>
+            <span class="author-block">Zaiwang Gu<sup>2</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Institute of High Performance Computing, Agency for Science, Technology and Research, Singapore &nbsp;</span>
+            <span class="author-block"><sup>2</sup>Institute for Infocomm Research, Agency for Science, Technology and Research, Singapore &nbsp;</span>
+            <span class="author-block"><sup>3</sup>Johns Hopkins University</span>
+          </div>
+
+          <div class="is-size-6 publication-authors">
+            * Equal contribution. &nbsp; | &nbsp; &#9993; Corresponding author.
+          </div>
+
+          <div class="is-size-6 publication-authors">
+            Xia_Yingzhi@a-star.edu.sg &nbsp; | &nbsp; zhen_liangli@a-star.edu.sg &nbsp; | &nbsp; Gu_Zaiwang@a-star.edu.sg &nbsp; | &nbsp; stanomk1@jhu.edu
+          </div>
+
+          <div class="column has-text-centered mt-4">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://openreview.net/pdf?id=Yfk4ex3Z1G" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>OpenReview PDF</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/NA-HMC/NA-HMC" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <h2 class="title is-3 has-text-centered">Motivation and Method</h2>
+      <div class="content has-text-centered">
+        <img id="fig1-thumb" src="assets/media/generation6.png" width="96%" alt="Comparison of existing methods and NA-NHMC" />
+      </div>
+      <div id="lightbox" class="lightbox">
+        <img src="assets/media/generation6.png" alt="Motivation and method figure high resolution" />
+      </div>
+      <div class="content has-text-justified fig-caption">
+        <p>
+          <b>Figure.</b> Comparison of existing methods and their limitations with the N-HMC method.
+          (a) Iterative Guidance Methods (<i>DPS</i>) lead to <i>manifold infeasibility</i>.
+          (b) Stochastic MAP methods (<i>ReSample</i>) are susceptible to <i>overfitting to noise</i>.
+          (c) Deterministic MAP methods (<i>DMPlug</i>) become <i>trapped in a local mode</i>.
+          (d) Our method performs sampling in the noise space <span class="math-inline">x<sub>T</sub></span> and maps samples to images via a deterministic mapping <span class="math-inline">x<sub>0</sub> = D(x<sub>T</sub>)</span>.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          Diffusion models have shown strong performance in inverse problems, but existing approaches often suffer from manifold infeasibility,
+          noise overfitting, or local-mode collapse. We propose Noise-space Hamiltonian Monte Carlo (N-HMC), which treats reverse diffusion
+          as a deterministic mapping from initial Gaussian noise to clean images and performs posterior sampling entirely in the noise space.
+          This formulation keeps proposals on the learned manifold and enables robust posterior exploration. We further introduce
+          Noise-Adaptive N-HMC (NA-NHMC), which marginalizes unknown measurement noise variance and removes task-specific tuning of
+          noise-level hyperparameters. Across linear and nonlinear inverse problems on FFHQ and ImageNet, NA-NHMC delivers strong
+          reconstruction quality and robust behavior under unknown noise.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero" id="trajectory">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Sampling Dynamics Across Inverse Problems</h2>
+      <p class="has-text-centered subtitle is-6 trajectory-subtitle">
+        Three representative inverse problems. Each task card shows reference image, measurement, and NA-NHMC convergence trajectory.
+      </p>
+
+      <div class="traj-task-card">
+        <div class="traj-card-head">
+          <h3 class="title is-5 mb-2">Phase Retrieval</h3>
+          <p class="is-size-7">
+            <b>Setting:</b> FFHQ 256x256, observation noise sigma_y=0.01.  
+            <b>Detail:</b> Fourier-magnitude measurements cause severe ambiguity; trajectory shows gradual manifold-aligned recovery.
+          </p>
+        </div>
+        <div class="traj-grid">
+          <figure class="traj-panel">
+            <div class="traj-label">Reference</div>
+            <img src="assets/media/ref_phase.png" alt="Reference for phase retrieval" />
+          </figure>
+          <figure class="traj-panel">
+            <div class="traj-label">Measurement</div>
+            <img src="assets/media/meas_phase.png" alt="Measurement for phase retrieval" />
+          </figure>
+          <figure class="traj-panel">
+            <div class="traj-label">NA-NHMC Convergence Trajectory</div>
+            <img src="assets/media/traj_phase.gif" alt="NA-NHMC trajectory for phase retrieval" />
+          </figure>
+        </div>
+      </div>
+
+      <div class="traj-task-card">
+        <div class="traj-card-head">
+          <h3 class="title is-5 mb-2">Random Inpainting (92%)</h3>
+          <p class="is-size-7">
+            <b>Setting:</b> FFHQ 256x256, random mask ratio 92%, observation noise sigma_y=0.05.  
+            <b>Detail:</b> Most pixels are missing; NA-NHMC samples progressively restore global structure and local facial textures.
+          </p>
+        </div>
+        <div class="traj-grid">
+          <figure class="traj-panel">
+            <div class="traj-label">Reference</div>
+            <img src="assets/media/ref_inpaint.png" alt="Reference for inpainting" />
+          </figure>
+          <figure class="traj-panel">
+            <div class="traj-label">Measurement</div>
+            <img src="assets/media/meas_inpaint.png" alt="Measurement for inpainting" />
+          </figure>
+          <figure class="traj-panel">
+            <div class="traj-label">NA-NHMC Convergence Trajectory</div>
+            <img src="assets/media/traj_inpaint.gif" alt="NA-NHMC trajectory for inpainting" />
+          </figure>
+        </div>
+      </div>
+
+      <div class="traj-task-card">
+        <div class="traj-card-head">
+          <h3 class="title is-5 mb-2">HDR Reconstruction</h3>
+          <p class="is-size-7">
+            <b>Setting:</b> FFHQ 256x256, nonlinear camera response, observation noise sigma_y=0.05.  
+            <b>Detail:</b> Trajectory illustrates iterative correction of exposure and contrast while preserving semantic consistency.
+          </p>
+        </div>
+        <div class="traj-grid">
+          <figure class="traj-panel">
+            <div class="traj-label">Reference</div>
+            <img src="assets/media/ref_hdr.png" alt="Reference for HDR" />
+          </figure>
+          <figure class="traj-panel">
+            <div class="traj-label">Measurement</div>
+            <img src="assets/media/meas_hdr.png" alt="Measurement for HDR" />
+          </figure>
+          <figure class="traj-panel">
+            <div class="traj-label">NA-NHMC Convergence Trajectory</div>
+            <img src="assets/media/traj_hdr.gif" alt="NA-NHMC trajectory for HDR" />
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Experimental Results</h2>
+
+    <div class="result-block">
+      <h3 class="title is-5">Main Quantitative Comparison</h3>
+      <p class="result-desc">
+        Key benchmark table from the paper. It summarizes performance over representative linear and nonlinear inverse problems.
+        NA-NHMC consistently improves robustness, especially in difficult nonlinear settings and unknown-noise scenarios.
+      </p>
+      <figure>
+        <img src="assets/media/main_results_table.png" alt="Main quantitative table from paper" />
+        <figcaption>Main result table highlighting competitive or best performance of NA-NHMC across tasks and metrics.</figcaption>
+      </figure>
+    </div>
+
+    <div class="columns is-multiline">
+      <div class="column is-12">
+        <div class="result-block">
+          <h3 class="title is-5">Nonlinear Deblurring Visual Comparison</h3>
+          <p class="result-desc">
+            Under high noise (σ<sub>y</sub>=0.2), NA-NHMC recovers sharper facial details with fewer artifacts than prior baselines.
+          </p>
+          <figure>
+            <img src="assets/media/nonlinear2.png" alt="Nonlinear deblurring qualitative results" />
+            <figcaption>Nonlinear deblurring results on FFHQ (256×256) with σ<sub>y</sub>=0.2.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="column is-12">
+        <div class="result-block">
+          <h3 class="title is-5">Unknown Noise Robustness</h3>
+          <p class="result-desc">
+            With the same hyperparameter setting used for Gaussian experiments, NA-NHMC remains strong under impulse and speckle noise.
+          </p>
+          <figure>
+            <img src="assets/media/unknown_noise.png" alt="Unknown noise qualitative results" />
+            <figcaption>Nonlinear deblurring on FFHQ under impulse noise (top) and speckle noise (bottom).</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="column is-6">
+        <div class="result-block">
+          <h3 class="title is-5">Initialization Robustness</h3>
+          <p class="result-desc">
+            Compared with DPS and DAPS, NA-NHMC shows lower variance across repeated runs while preserving reconstruction fidelity.
+          </p>
+          <figure>
+            <img src="assets/media/heatmap2.png" alt="Heatmap robustness visualization" />
+            <figcaption>Top: MAE heatmaps. Bottom: standard deviation heatmaps over 100 runs.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="column is-6">
+        <div class="result-block">
+          <h3 class="title is-5">Convergence in Highly Ill-Posed Task</h3>
+          <p class="result-desc">
+            The annealed noise schedule improves early exploration and raises successful recovery rate in phase retrieval.
+          </p>
+          <figure>
+            <img src="assets/media/phase_retrieval_metrics_iterations.png" alt="Phase retrieval convergence" />
+            <figcaption>Phase retrieval on FFHQ (256×256), σ<sub>y</sub>=0.01; median with 5th–95th percentile band.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title has-text-centered">BibTeX</h2>
+    <pre><code>@inproceedings{tanomkiattikun2026noiseadaptive,
+  title     = {Noise-Adaptive Diffusion Sampling for Inverse Problems Without Task-Specific Tuning},
+  author    = {Tanomkiattikun, Setthakorn and Gu, Zaiwang and Zhen, Liangli and Xia, Yingzhi},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2026},
+  url       = {https://openreview.net/pdf?id=Yfk4ex3Z1G}
+}</code></pre>
+  </div>
+</section>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
